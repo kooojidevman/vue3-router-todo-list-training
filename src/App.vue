@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import type { Todo } from './interfaces';
+import { provide, reactive } from 'vue';
+
+const todoList = new Map<number, Todo>();
+
+todoList.set(1, {
+  id: 1,
+  title: 'サッカー',
+  content: 'サッカーをする'
+});
+
+todoList.set(2, {
+  id: 2,
+  title: '筋トレ',
+  content: '筋トレをする'
+});
+
+provide("todoList", reactive(todoList));
 </script>
 
 <template>
@@ -11,13 +28,14 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Top</RouterLink>
+        <RouterLink to="/new">Create</RouterLink>
       </nav>
     </div>
   </header>
-
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
