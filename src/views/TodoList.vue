@@ -3,7 +3,6 @@ import type { Todo } from '../interfaces';
 import { inject } from 'vue';
 import { RouterLink } from 'vue-router';
 
-
 const todoList = inject("todoList") as Map<number, Todo>;
 </script>
 
@@ -15,7 +14,7 @@ const todoList = inject("todoList") as Map<number, Todo>;
       <ul>
         <li v-for="[id, todo] in todoList" v-bind:key="id">
           <RouterLink v-bind:to="{name: 'TodoDetail', params: { id: id }}">
-            {{ todo.title }}
+            ID:{{ id }} {{ todo.title }}
           </RouterLink>
         </li>
       </ul>
