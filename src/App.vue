@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import type { Todo } from './interfaces';
-import { provide, reactive } from 'vue';
+import type { Todo } from './interfaces'
+import { provide, reactive } from 'vue'
 
-const todoList = new Map<number, Todo>();
+const todoList = new Map<number, Todo>()
 
 todoList.set(1, {
   id: 1,
   title: 'サッカー',
   content: 'サッカーをする'
-});
+})
 
 todoList.set(2, {
   id: 2,
   title: '筋トレ',
   content: '筋トレをする'
-});
+})
 
-provide("todoList", reactive(todoList));
+provide('todoList', reactive(todoList))
 </script>
 
 <template>

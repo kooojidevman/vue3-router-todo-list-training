@@ -1,27 +1,26 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 const routeSettings: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'TodoList',
     // 動的importの方が良いかも
-    component: () => import('@/views/TodoList.vue')
+    component: () => import('@/views/todo/TodoList.vue')
   },
   {
     path: '/new',
     name: 'TodoCreate',
     // 動的importの方が良いかも
-    component: () => import('@/views/TodoCreate.vue')
+    component: () => import('@/views/todo/TodoCreate.vue')
   },
   {
-    path: '/:id',
+    path: '/detail/:id',
     name: 'TodoDetail',
     // 動的importの方が良いかも
-    component: () => {
-      import('@/views/TodoDetail.vue')
-    },
+    component: () => import('@/views/todo/TodoDetail.vue'),
     props: (routes) => {
-      const idNum = Number(routes.params.id);
+      const idNum = Number(routes.params.id)
       return { id: idNum }
     }
   }
