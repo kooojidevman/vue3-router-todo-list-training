@@ -27,15 +27,20 @@ const onCreate = (): void => {
         <label for="addTitle">タイトル&nbsp;</label>
       </dt>
       <dd>
-        <input type="text" id="addTitle" v-model="newTodo.title" required />
+        <input type="text" class="text-gray-900" id="addTitle" v-model="newTodo.title" required />
       </dd>
       <dt>
         <label for="addContent">本文&nbsp;</label>
       </dt>
       <dd>
-        <textarea id="addCopntent" v-model="newTodo.content"></textarea>
+        <textarea id="addContent" class="text-gray-900" v-model="newTodo.content"></textarea>
       </dd>
-      <button style="margin-top: 20px">保存</button>
+      <button
+        style="margin-top: 20px"
+        class="bg-gradient-to-r from-green-300 to-green-800 hover:bg-gradient-to-l text-white rounded px-4 py-2"
+      >
+        保存
+      </button>
     </form>
   </section>
 </template>

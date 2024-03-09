@@ -15,10 +15,19 @@ const routeSettings: RouteRecordRaw[] = [
     component: () => import('@/views/todo/TodoCreate.vue')
   },
   {
-    path: '/detail/:id',
+    path: '/:id',
     name: 'TodoDetail',
     // 動的importの方が良いかも
     component: () => import('@/views/todo/TodoDetail.vue'),
+    props: (routes) => {
+      const idNum = Number(routes.params.id)
+      return { id: idNum }
+    }
+  },
+  {
+    path: '/:id/edit',
+    name: 'TodoEdit',
+    component: () => import('@/views/todo/TodoEdit.vue'),
     props: (routes) => {
       const idNum = Number(routes.params.id)
       return { id: idNum }
