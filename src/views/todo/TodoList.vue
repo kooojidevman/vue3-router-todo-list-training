@@ -1,16 +1,32 @@
 <script setup lang="ts">
 import type { Todo } from '../../interfaces'
-import { inject } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
-const todoList = inject('todoList') as Map<number, Todo>
+const todoListInit = inject('todoList') as Map<number, Todo>
+const todoList = ref(todoListInit);
+let searchQuery = ref('');
 
 const onClickButtonToEdit = (todoId: number): void => {
   router.push({ name: 'TodoEdit', params: { id: todoId } })
 }
 const onClickButtonToDelete = (todoId: number): void => {
-  todoList.delete(todoId);
+  todoList.value.delete(todoId);
+}
+const onInputSearch = (): void => {
+  if(!searchQuery.value) {
+    todoList.value = todoListInit;
+  }
+
+  const filterdTodoList = new Map<number, Todo>();
+  todoList.value.forEach((todo, key) => {
+    if (todo.title.includes(searchQuery.value)) {
+      filterdTodoList.set(key, todo);
+    }
+  });
+
+  todoList.value = filterdTodoList;
 }
 </script>
 
@@ -18,14 +34,7 @@ const onClickButtonToDelete = (todoId: number): void => {
   <section style="text-align: center">
     <h1 style="margin: 20px">TODOリスト</h1>
     <div style="margin: 20px">
-      <input type="text" class="text-gray-900" />
-      <button
-        type="button"
-        class="bg-gradient-to-r from-gray-100 to-grau-800 hover:bg-gradient-to-l text-white rounded px-4 py-2"
-        style="margin-left: 10px;"
-      >
-        検索
-      </button>
+      <input type="text" class="text-gray-900" v-model="searchQuery" placeholder="検索" v-on:input="onInputSearch" />
     </div>
     <ul style="text-align: center; margin-bottom: 20px">
       <li v-for="[id, todo] in todoList" v-bind:key="id">
